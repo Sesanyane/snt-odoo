@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="snt_matter_action" model="ir.actions.act_window">
+    <field name="name">Matter</field>
+    <field name="res_model">snt.matter</field>
+    <field name="view_mode">tree,form</field>
+</record>
+    <record id="snt_matter_form" model="ir.ui.view">
+        <field name="name">snt.matter.form</field>
+        <field name="model">snt.matter</field>
+        <field name="arch" type="xml">
+        
+            <form string="Matter">
+            <sheet>
+            
+                <group>
+                <field name="matter_no"/>
+                
+                </group>
+
+                     </sheet>
+            </form>
+           
+        </field>
+    </record>
+
+    <record id="snt_matter_tree" model="ir.ui.view">
+        <field name="name">snt.matter.tree</field>
+        <field name="model">snt.matter</field>
+        <field name="arch" type="xml">
+            <tree string="Matters">
+                <field name="matter_no"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>
