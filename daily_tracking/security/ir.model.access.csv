@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_snt_matter,access_snt_matter,model_snt_matter,base.group_user,1,1,1,1
+access_snt_daily_tracker,access_snt_daily_tracker,model_snt_daily_tracker,base.group_user,1,1,1,1
