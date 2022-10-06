@@ -13,8 +13,8 @@ class DailyTracker(models.Model):
     user_id = fields.Many2one("res.users", string="Agent",readonly=True,
                               default=lambda self: self.env.user)
 
-    date = fields.Date(
-        string='Date',default=date.today(),readonly=True,tracking=True
+    date = fields.Datetime(
+        string='Date',default=lambda self: fields.datetime.today(),readonly=True,tracking=True
     )
     # time = fields.Date(
     #     string='Date',default= date.today().strftime(DEFAULT_SERVER_DATE_FORMAT),readonly=True,tracking=True)
