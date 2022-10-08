@@ -22,7 +22,10 @@
                             
                         </div>
                 <group>
+                <field name="file_status"/>
                 <field name="matter_no"/>
+                <field name="debtor"/>
+                <field name="handover_amount"/>
                 <field name="outstanding_balance"/>
                
                 </group>
@@ -38,13 +41,20 @@
                 <field name="ptp_agent"/>
                 </group>
 
-                 <!-- <notebook>
+                 <notebook>
                     
                         <page string="Arrangements">
                             <field name="arrangement_ids"/>
                         </page>
+                    
+                        <page string="Payments">
+                            <field name="payments_ids"/>
+                        </page>
+                         <page string="Daily Tracking">
+                            <field name="tracker_id"/>
+                        </page>
                         
-                    </notebook> -->
+                    </notebook>
                      </sheet>
             </form>
            
@@ -57,6 +67,8 @@
         <field name="arch" type="xml">
             <tree string="Matters">
                 <field name="matter_no"/>
+                <field name="file_status"/>
+                <field name="handover_amount"/>
                 <field name="outstanding_balance"/>
             
             </tree>
