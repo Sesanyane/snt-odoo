@@ -2,7 +2,7 @@
 <odoo>
 <record id="module_category_agent" model="ir.module.category">
 <field name="name">Management</field>
-<field name="description">Helps you handle your agent details.</field>
+<field name="description">Helps you handle your student details.</field>
 <field name="sequence">1</field>
 </record>
 
@@ -16,22 +16,22 @@
 
 <record id="group_agent_manager" model="res.groups">
 <field name="name">Administrator</field>
-<field name="comment">the user will have an access to all user record.</field>
+<field name="comment">the user will have an access to the student configuration as well as all user record.</field>
 <field name="category_id" ref="module_category_agent"/>
 <field name="implied_ids" eval="[(4, ref('group_agent_user'))]"/>
 <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
 </record>
 <!-- Recode Rules -->
 <record id="agent_rule_all_records" model="ir.rule">
-<field name="name">All Daily Tracks</field>
-<field ref="model_snt_daily_tracker" name="model_id"/>
+<field name="name">All Arrangements</field>
+<field ref="model_snt_arrangements" name="model_id"/>
 <field name="domain_force">[(1,'=',1)]</field>
 <field name="groups" eval="[(4, ref('group_agent_manager'))]"/>
 </record>
 
 <record model="ir.rule" id="agent_own_record">
-<field name="name">Users can only access their own record</field>
-<field name="model_id" ref="model_snt_daily_tracker"/>
+<field name="name">Users can only access their own recode</field>
+<field name="model_id" ref="model_snt_arrangements"/>
 <field name="domain_force">[('user_id', '=', user.id)]</field>
 <field name="groups" eval="[(4, ref('group_agent_user'))]"/>
 </record>

@@ -3,6 +3,7 @@
 <record id="snt_daily_tracker_action" model="ir.actions.act_window">
     <field name="name">Daily Tracker</field>
     <field name="res_model">snt.daily.tracker</field>
+    <field name="context">{'search_default_today': 1}</field>
     <field name="view_mode">tree,form</field>
 </record>
     <record id="snt_daily_tracker_form" model="ir.ui.view">
@@ -14,18 +15,20 @@
             <sheet>
              <group >
             <group string="Matter Status">
+            <field name="create_date" string='Date' attrs="{'readonly': [('id','=', False )]}"/>
                 <field name="user_id"/>
-                <field name="matter_ids"/>
-                <field name="date"/>
+                <field name="matter_ids" options="{'no_create': True}"/>
+                  <field name="debtor"/>
+                
                 <field name="status"/>
                 <field name="wrap_up"/>
 
                 </group>
                     
                 <group string="PTPs and Payments">
-                <field name="ptp_date"/>
-                <field name="ptp_amount"/>
-                <field name="last_paid_date"/>
+                <field name="ptp_date" attrs="{'invisible': [('status', '!=', 'broken_ptp')]}"/>
+                <field name="ptp_amount" attrs="{'invisible': [('status', '!=', 'broken_ptp')]}"/>
+                <field name="last_paid_date" />
                 <field name="last_paid_amount"/>
                 <field name="source_of_income"/>
                 <field name="employer_name"/>
@@ -58,23 +61,48 @@
         </field>
     </record>
 
-    <record id="snt_matter_tree" model="ir.ui.view">
+    <record id="snt_daily_tracker_tree" model="ir.ui.view">
         <field name="name">snt.daily.tracker.tree</field>
         <field name="model">snt.daily.tracker</field>
         <field name="arch" type="xml">
             <tree string="Matters">
               <field name="user_id"/>
                 <field name="matter_ids"/>
-                <field name="date"/>
+                <field name="create_date" string='Date'/>
                 <field name="status"/>
                 <field name="wrap_up"/>
                 <field name="ptp_date"/>
                 <field name="ptp_amount"/>
-                <field name="source_of_income"/>
+                <field name="debtor"/>
                 <field name="employer_name"/>
-                 <field name="payment_trust"/>
-                <field name="comments"/>
+                <field name="payment_trust"/>
+                <field name="comments"/>      
+                
+
+         
             </tree>
+        </field>
+    </record>
+
+     <record id="snt_daily_tracker_search" model="ir.ui.view">
+        <field name="name">snt.daily.tracker.search</field>
+        <field name="model">snt.daily.tracker</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="matter_ids"/>
+                <field name="create_date" string='Date' />
+                <field name="status"/>
+                <field name="wrap_up"/>
+                <field name="ptp_date"/>
+                <field name="ptp_amount"/>
+                <field name="employer_name"/>
+                <field name="payment_trust"/>
+                <field name="comments"/>  
+              <filter string="Today" name="today" domain="[('create_date', '&gt;', (context_today() - datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d'))]"/>
+              <filter string="Current Month" name="current_month" domain="[('create_date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('create_date','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+              <filter string="Current Week" name="current_week" domain="[('create_date', '&lt;=', ((context_today()+relativedelta(weeks=0, weekday=-1)).strftime('%Y-%m-%d'))), ('create_date', '&gt;=', ((context_today()-relativedelta(weeks=1, weekday=0)).strftime('%Y-%m-%d')))]"/>
+            </search>
         </field>
     </record>
 
