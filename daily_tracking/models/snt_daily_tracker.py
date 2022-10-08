@@ -13,9 +13,15 @@ class DailyTracker(models.Model):
     user_id = fields.Many2one("res.users", string="Agent",readonly=True,
                               default=lambda self: self.env.user)
 
+
     
-    date_action = fields.Datetime('Date', required=False, select=True,readonly=True,
-                                 default=lambda self: fields.datetime.now())
+  
+    date = fields.Datetime(
+        string='Date',default=lambda self: fields.datetime.today(),readonly=True,tracking=True
+    )
+    # time = fields.Date(
+    #     string='Date',default= date.today().strftime(DEFAULT_SERVER_DATE_FORMAT),readonly=True,tracking=True)
+
    
     status = fields.Selection(
         selection=[
@@ -113,8 +119,12 @@ class DailyTracker(models.Model):
     matter_ids = fields.Many2one("snt.matter",string="Matter Number",required=True
     )
 
+
     # @api.depends('matter_id')
     # def update_value(self):
     #     for rec in self:
     #         rec.client = rec.matter_id.book_id.client_id.name
     #         return rec
+
+    
+
