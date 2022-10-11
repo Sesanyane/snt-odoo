@@ -1,5 +1,5 @@
 {
-    'name': "Daily Tracker",
+    'name': "Snt DATA",
     'author': "Leano Sesanyane",
     'depends': ['base', 'web'],
     # Puts the app at the top of the app list
@@ -7,8 +7,12 @@
     'data': [
         "security/ir.model.access.csv",
         "security/security.xml",
-        "views/snt_matter.xml",
         "views/snt_daily_tracker.xml",
+        "views/snt_arrangements.xml",
+        "views/snt_client.xml",
+        "views/snt_book.xml",
+        "views/snt_matter.xml",
+        "views/snt_payments.xml",
         "views/snt_menus.xml",
     ],
     'depends':[

@@ -1,6 +1,5 @@
 from datetime import date
-from odoo import fields, models
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+from odoo import api, fields, models
 
 
 class DailyTracker(models.Model):
@@ -12,12 +11,6 @@ class DailyTracker(models.Model):
 
     user_id = fields.Many2one("res.users", string="Agent",readonly=True,
                               default=lambda self: self.env.user)
-
-    date = fields.Datetime(
-        string='Date',default=lambda self: fields.datetime.today(),readonly=True,tracking=True
-    )
-    # time = fields.Date(
-    #     string='Date',default= date.today().strftime(DEFAULT_SERVER_DATE_FORMAT),readonly=True,tracking=True)
 
    
     status = fields.Selection(
@@ -43,7 +36,6 @@ class DailyTracker(models.Model):
         string="Status",
         required=True,
         copy=False,
-        default="attempting_ptp",
         tracking=True
     )
     wrap_up = fields.Selection(
@@ -68,24 +60,23 @@ class DailyTracker(models.Model):
         string="Wrap-up Selected",
         required=True,
         copy=False,
-        default="awaiting_pop",
         tracking=True
 
     )
 
-    ptp_date= fields.Date(tracking=True
+    ptp_date= fields.Date(tracking=True,
         
     )
 
-    ptp_amount= fields.Float(tracking=True
+    ptp_amount= fields.Float(tracking=True,
         
     )
 
-    last_paid_date= fields.Date(tracking=True
+    last_paid_date= fields.Date(tracking=True,
         
     )
 
-    last_paid_amount= fields.Float(tracking=True
+    last_paid_amount= fields.Float(tracking=True,
         
     )
 
@@ -94,6 +85,10 @@ class DailyTracker(models.Model):
     )
 
     employer_name= fields.Char(tracking=True
+        
+    )
+
+    debtor= fields.Char(tracking=True,readonly=True,compute="update_value"
         
     )
 
@@ -114,4 +109,8 @@ class DailyTracker(models.Model):
     matter_ids = fields.Many2one("snt.matter",string="Matter Number",required=True
     )
 
-    
+    @api.depends('matter_ids')
+    def update_value(self):
+        for rec in self:
+            rec.debtor = rec.matter_ids.debtor
+            return rec

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="snt_matter_action" model="ir.actions.act_window">
+<record id="snt_matter_action" model="ir.actions.act_window">
     <field name="name">Matter</field>
     <field name="res_model">snt.matter</field>
     <field name="view_mode">tree,form</field>
@@ -12,12 +12,49 @@
         
             <form string="Matter">
             <sheet>
-            
+            <div class="oe_button_box" name="button_box">
+                            <button name="action_show_arrangements" type="object"  class="oe_stat_button" icon="fa-list">
+                                <field string="Arrangements" name="arrangements_count" widget="statinfo"/>
+                            </button>
+                            <button name="action_show_payments" type="object"  class="oe_stat_button" icon="fa-money">
+                                <field string="Payments" name="payments_count" widget="statinfo"/>
+                            </button>
+                            
+                        </div>
                 <group>
+                <field name="file_status"/>
                 <field name="matter_no"/>
-                
+                <field name="debtor"/>
+                <field name="handover_amount"/>
+                <field name="outstanding_balance"/>
+               
                 </group>
 
+                <group>
+                <field name="last_date_paid"/>
+                <field name="amount_paid"/>
+                <field name="last_paid_agent"/>
+                </group>
+                <group>
+                <field name="ptp_expected_date"/>
+                <field name="ptp_amount"/>
+                <field name="ptp_agent"/>
+                </group>
+
+                 <notebook>
+                    
+                        <page string="Arrangements">
+                            <field name="arrangement_ids"/>
+                        </page>
+                    
+                        <page string="Payments">
+                            <field name="payments_ids"/>
+                        </page>
+                         <page string="Daily Tracking">
+                            <field name="tracker_id"/>
+                        </page>
+                        
+                    </notebook>
                      </sheet>
             </form>
            
@@ -30,8 +67,19 @@
         <field name="arch" type="xml">
             <tree string="Matters">
                 <field name="matter_no"/>
+                <field name="file_status"/>
+                <field name="handover_amount"/>
+                <field name="outstanding_balance"/>
+            
             </tree>
         </field>
     </record>
+
+    <!-- <record id="snt_book_model_action" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">snt.book.offer</field>
+        <field name="domain">[('book_id','=', active_id)]</field>
+        <field name="view_mode">tree,form</field>
+    </record> -->
 
 </odoo>
