@@ -24,14 +24,14 @@
 <!-- Recode Rules -->
 <record id="agent_rule_all_records" model="ir.rule">
 <field name="name">All Arrangements</field>
-<field ref="model_snt_arrangements" name="model_id"/>
+<field ref="model_snt_daily_tracker" name="model_id"/>
 <field name="domain_force">[(1,'=',1)]</field>
 <field name="groups" eval="[(4, ref('group_agent_manager'))]"/>
 </record>
 
 <record model="ir.rule" id="agent_own_record">
 <field name="name">Users can only access their own recode</field>
-<field name="model_id" ref="model_snt_arrangements"/>
+<field name="model_id" ref="model_snt_daily_tracker"/>
 <field name="domain_force">[('user_id', '=', user.id)]</field>
 <field name="groups" eval="[(4, ref('group_agent_user'))]"/>
 </record>
