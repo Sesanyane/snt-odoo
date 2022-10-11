@@ -59,7 +59,7 @@
             </tree>
         </field>
     </record>
-    <record id="snt_arrangments_action" model="ir.actions.act_window">
+    <!-- <record id="snt_arrangments_action" model="ir.actions.act_window">
         <field name="res_model">snt.arrangements</field>
         <field name="view_mode">tree,kanban,form</field>
         <field name="context">{'search_default_available': 1}</field>
@@ -71,5 +71,5 @@
                 Create Arrangements
             </p>
         </field>
-        </record>
+        </record> -->
 </odoo>

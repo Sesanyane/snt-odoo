@@ -26,8 +26,8 @@
                 </group>
                     
                 <group string="PTPs and Payments">
-                 <field name="ptp_date" />
-                <field name="ptp_amount" />
+                 <field name="ptp_date" attrs="{'required': [('status', '=', 'broken_ptp')]}"/>
+                <field name="ptp_amount" attrs="{'required': [('status', '=', 'broken_ptp')]}"/>
                 <field name="last_paid_date" />
                 <field name="last_paid_amount"/>
                 <field name="source_of_income"/>
