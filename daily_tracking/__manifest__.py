@@ -1,5 +1,5 @@
 {
-    'name': "Snt DATA",
+    'name': "S&t DATA",
     'author': "Leano Sesanyane",
     'depends': ['base', 'web'],
     # Puts the app at the top of the app list

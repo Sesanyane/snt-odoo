@@ -3,7 +3,7 @@
 
     <menuitem 
     id="snt_root_menu" 
-    name="Snt Collections"/>
+    name="S&amp;T Collections"/>
 
     <menuitem 
     id="snt_daily_tracker_menu" 
@@ -15,7 +15,8 @@
     id="snt_arrangements_menu" 
     name="Arrangements"
     parent='snt_root_menu'
-    action="snt_arrangements_action"/>
+    action="snt_arrangements_action"
+    groups="group_agent_manager"/>
 
     <menuitem 
     id="snt_Payments_menu" 
