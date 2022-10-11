@@ -9,7 +9,7 @@ class Payments(models.Model):
 
     matter_id = fields.Many2one("snt.matter",string="Matter Number"
     )
-    account_no = fields.Integer(
+    account_no = fields.Char(
 
     )
     date_paid = fields.Date(
@@ -55,7 +55,7 @@ class Payments(models.Model):
         string="Status",
         required=True,
         copy=False,
-        default="new",
+        default="request_confirmation",
     )
 
     def action_sold(self):

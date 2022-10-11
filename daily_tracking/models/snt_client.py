@@ -20,5 +20,7 @@ class Client(models.Model):
      # Relational
     book_ids = fields.One2many("snt.book",
                                 "client_id", string="Books")
+    # matter_ids = fields.One2many("snt.matter",
+    #                             "book_id", string="Matters")                           
 
 # TODO oustannding balance for all books,book value(capital)

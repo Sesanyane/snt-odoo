@@ -8,24 +8,32 @@ class Matter(models.Model):
 
     _rec_name = "matter_no"
 
-    _sql_constraints = [
-        ("check_expected_price", "CHECK(outstanding_balance > 0)", "The expected "
-                                                              "price must be"
-                                                              " strictly "
-                                                              "positive"),
-        ("check_selling_price", "CHECK(selling_price >= 0)", "The offer "
-                                                             "price must be "
-                                                             "positive"),
-    ]
+    # _sql_constraints = [
+    #     ("check_expected_price", "CHECK(outstanding_balance > 0)", "The expected "
+    #                                                           "price must be"
+    #                                                           " strictly "
+    #                                                           "positive"),
+    #     ("check_selling_price", "CHECK(selling_price >= 0)", "The offer "
+    #                                                          "price must be "
+    #                                                          "positive"),
+    # ]
 
     matter_no = fields.Char(
 
     )
-    outstanding_balance = fields.Float(
+
+    file_status = fields.Char()
+    outstanding_balance = fields.Float(compute="_compute_outstanding_balance"
+
+    )
+    handover_amount = fields.Float(
 
     )
     book_id = fields.Many2one("snt.book", string="Book",
                                   required=True)
+    # client_id = fields.Many2one("snt.client", string="Client",
+    #                               required=True)                              
+                                  
 
     arrangement_ids = fields.One2many("snt.arrangements",
                                 "matter_id", string="Arrangemnts")
@@ -42,7 +50,7 @@ class Matter(models.Model):
 
     )
 
-    debtor= fields.Char(tracking=True,readonly=True,
+    debtor= fields.Char(tracking=True
         
     )
 
@@ -120,25 +128,31 @@ class Matter(models.Model):
   
     def payment_details(self):
         for rec in self:
-            rec.amount_paid = rec.env['snt.payments'].search([],order='date_paid desc')[0].amount_paid
+                rec.amount_paid = rec.env['snt.payments'].search([],order='date_paid desc')[0].amount_paid
 
     def _compute_last_date_paid(self):
         for rec in self:
-            rec.last_date_paid = rec.env['snt.payments'].search([],order='date_paid desc ' )[0].date_paid 
+                rec.last_date_paid = rec.env['snt.payments'].search([],order='date_paid desc ' )[0].date_paid 
 
     def _compute_last_paid_agent(self):
         for rec in self:
-            rec.last_paid_agent = rec.env['snt.payments'].search([],order='date_paid desc')[0].agent.name      
-
-
+            rec.last_paid_agent = rec.env['snt.payments'].search([],order='date_paid desc')[0].agent.name 
+    
+    @api.depends("payments_ids.amount_paid") 
     def _compute_ptp_expected_date(self):
         for rec in self:
-            rec.ptp_expected_date = rec.env['snt.arrangements'].search([])[-1].ptp_expected_date
+            rec.ptp_expected_date = rec.env['snt.arrangements'].search([])[-1].ptp_expected_date  if rec.ptp_expected_date == None else None 
 
     def _compute_last_ptp_amount(self):
         for rec in self:
-            rec.ptp_amount = rec.env['snt.arrangements'].search([] )[-1].amount
+            if rec.ptp_amount == True:
+                rec.ptp_amount = rec.env['snt.arrangements'].search([] )[-1].amount 
+
 
     def _compute_last_ptp_agent(self):
         for rec in self:
-            rec.ptp_agent = rec.env['snt.arrangements'].search([])[-1].user_id.name  
+            rec.ptp_agent = rec.env['snt.arrangements'].search([])[-1].user_id.name  if rec.ptp_agent  == None else None 
+    @api.depends("payments_ids.amount_paid")
+    def _compute_outstanding_balance(self):
+        for prop in self:
+            prop.outstanding_balance = prop.handover_amount - sum(prop.payments_ids.mapped("amount_paid"))   

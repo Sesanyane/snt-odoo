@@ -13,9 +13,9 @@
 
                 <header>
                 <button name="action_sold" type="object" string="Confirm"
-                            states="new,awaiting"/>
-                    <button name="action_sold" type="object" string="Confirm"
-                            states="offer_accepted" class="oe_highlight"/>
+                            states="request_confirmation,sent_to_client"/>
+                    <!-- <button name="action_sold" type="object" string="Confirm"
+                            states="request_confirmation" class="oe_highlight"/> -->
                 <field name="state" widget="statusbar"
                            statusbar_visible="request_confirmation,sent_to_client,paid,not_paid"/>
                 </header>

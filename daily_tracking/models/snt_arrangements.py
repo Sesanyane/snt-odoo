@@ -7,14 +7,14 @@ class Arrangements(models.Model):
     _name = "snt.arrangements"
     _description = "Client Arrengements"
     _rec_name = "matter_id"
-    _sql_constraints = [
-        ("arrangement_unique", "CHECK(1==1)", 'Status cannot be repeated in an arrangement '),
+    # _sql_constraints = [
+    #     ("arrangement_unique", "CHECK(1==1)", 'Status cannot be repeated in an arrangement '),
 
-        ("check_previous_date", "CHECK(amount > 1)", "The expected "
-                                                              "price must be"
-                                                              " strictly "
-                                                              "positive"),
-    ]
+    #     ("check_previous_date", "CHECK(amount > 1)", "The expected "
+    #                                                           "price must be"
+    #                                                           " strictly "
+    #                                                           "positive"),
+    # ]
 
     today = date.today()
 

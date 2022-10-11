@@ -1,5 +1,5 @@
 from datetime import date
-from odoo import fields, models
+from odoo import api, fields, models
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
@@ -13,9 +13,6 @@ class DailyTracker(models.Model):
     user_id = fields.Many2one("res.users", string="Agent",readonly=True,
                               default=lambda self: self.env.user)
 
-    
-    date_action = fields.Datetime('Date', required=False, select=True,readonly=True,
-                                 default=lambda self: fields.datetime.now())
    
     status = fields.Selection(
         selection=[
@@ -92,7 +89,7 @@ class DailyTracker(models.Model):
         
     )
 
-    debtor= fields.Char(tracking=True,readonly=True,
+    debtor= fields.Char(tracking=True,readonly=True,compute="update_value"
         
     )
 
@@ -113,8 +110,8 @@ class DailyTracker(models.Model):
     matter_ids = fields.Many2one("snt.matter",string="Matter Number",required=True
     )
 
-    # @api.depends('matter_id')
-    # def update_value(self):
-    #     for rec in self:
-    #         rec.client = rec.matter_id.book_id.client_id.name
-    #         return rec
+    @api.depends('matter_ids')
+    def update_value(self):
+        for rec in self:
+            rec.debtor = rec.matter_ids.debtor
+            return rec
