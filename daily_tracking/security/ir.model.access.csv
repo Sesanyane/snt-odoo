@@ -1,0 +1,7 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_snt_matter,access_snt_matter,model_snt_matter,base.group_user,1,1,1,1
+access_snt_client,access_snt_client,model_snt_client,base.group_user,1,1,1,1
+access_snt_book,access_snt_book,model_snt_book,base.group_user,1,1,1,1
+access_snt_arrangements,access_snt_arrangements,model_snt_arrangements,base.group_user,1,1,1,1
+access_snt_payments,access_snt_payments,model_snt_payments,base.group_user,1,1,1,1
+access_snt_daily_tracker,access_snt_daily_tracker,model_snt_daily_tracker,base.group_user,1,1,1,1

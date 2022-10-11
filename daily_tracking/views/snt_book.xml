@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="snt_book_action" model="ir.actions.act_window">
+    <field name="name">Book</field>
+    <field name="res_model">snt.book</field>
+    <field name="view_mode">tree,form</field>
+</record>
+    <record id="snt_book_form" model="ir.ui.view">
+        <field name="name">snt.book.form</field>
+        <field name="model">snt.book</field>
+        <field name="arch" type="xml">
+            <form string="Book">
+                <group>
+                    <field name="name"/>
+                <field name="instuction_fee"/>
+                <field name="commision"/>
+                </group>
+                <notebook>
+                    
+                        <page string="Matters">
+                            <field name="matter_ids"/>
+                        </page>
+                        
+                    </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="snt_book_tree" model="ir.ui.view">
+        <field name="name">snt.book.tree</field>
+        <field name="model">snt.book</field>
+        <field name="arch" type="xml">
+            <tree string="Books">
+                <field name="name"/>
+                <field name="instuction_fee"/>
+                <field name="commision"/>
+                <field name="out_standing_balance"/>
+            
+            </tree>
+        </field>
+    </record>
+
+    <!-- <record id="snt_book_model_action" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">snt.book.offer</field>
+        <field name="domain">[('book_id','=', active_id)]</field>
+        <field name="view_mode">tree,form</field>
+    </record> -->
+
+</odoo>
+<!-- drop notebook -->

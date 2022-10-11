@@ -1,6 +1,5 @@
 from datetime import date
 from odoo import api, fields, models
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
 class DailyTracker(models.Model):
