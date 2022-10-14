@@ -37,7 +37,7 @@
                 </group>
                 <group>
                 <field name="ptp_expected_date"/>
-                <field name="ptp_amount"/>
+                <field name="last_ptp_amount"/>
                 <field name="ptp_agent"/>
                 </group>
 
