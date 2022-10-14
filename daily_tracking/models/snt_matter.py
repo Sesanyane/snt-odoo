@@ -8,7 +8,7 @@ class Matter(models.Model):
 
     _rec_name = "matter_no"
 
-    # _sql_constraints = [
+# _sql_constraints = [
     #     ("check_expected_price", "CHECK(outstanding_balance > 0)", "The expected "
     #                                                           "price must be"
     #                                                           " strictly "
@@ -16,7 +16,7 @@ class Matter(models.Model):
     #     ("check_selling_price", "CHECK(selling_price >= 0)", "The offer "
     #                                                          "price must be "
     #                                                          "positive"),
-    # ]
+    # ]    
 
     matter_no = fields.Char(
 
@@ -40,13 +40,13 @@ class Matter(models.Model):
     payments_ids = fields.One2many("snt.payments",
                                 "matter_id", string="Payments")
 
-    last_date_paid = fields.Date(compute="_compute_last_date_paid"
+    last_date_paid = fields.Date(compute='_compute_last_date_paid'
 
     )
     amount_paid = fields.Float( compute='payment_details'
 
     )
-    last_paid_agent = fields.Char(compute="_compute_last_paid_agent"
+    last_paid_agent = fields.Char( compute='_compute_last_paid_agent'
 
     )
 
@@ -54,13 +54,13 @@ class Matter(models.Model):
         
     )
 
-    ptp_expected_date = fields.Date(compute="_compute_ptp_expected_date"
+    ptp_expected_date = fields.Date(compute='_compute_ptp_expected_date'
 
     )
-    ptp_amount = fields.Float(compute="_compute_last_ptp_amount"
+    last_ptp_amount = fields.Float( compute='_compute_last_ptp_amount'
 
     )
-    ptp_agent = fields.Char(compute="_compute_last_ptp_agent"
+    ptp_agent = fields.Char(
 
     )
     arrangements_count = fields.Integer(compute="_compute_arrangements_count")
@@ -128,30 +128,34 @@ class Matter(models.Model):
   
     def payment_details(self):
         for rec in self:
-                rec.amount_paid = rec.env['snt.payments'].search([],order='date_paid desc')[0].amount_paid
+            rec.amount_paid = rec.payments_ids[-1].amount_paid if  rec.payments_ids else 0.0
+            return rec
+
 
     def _compute_last_date_paid(self):
-        for rec in self:
-                rec.last_date_paid = rec.env['snt.payments'].search([],order='date_paid desc ' )[0].date_paid 
-
+         for rec in self:
+            rec.last_date_paid = rec.payments_ids[-1].date_paid if  rec.payments_ids else None
+            return rec 
     def _compute_last_paid_agent(self):
         for rec in self:
-            rec.last_paid_agent = rec.env['snt.payments'].search([],order='date_paid desc')[0].agent.name 
-    
+            rec.last_paid_agent= rec.payments_ids[-1].agent.name if  rec.payments_ids else None
+            return rec
     @api.depends("payments_ids.amount_paid") 
     def _compute_ptp_expected_date(self):
         for rec in self:
-            rec.ptp_expected_date = rec.env['snt.arrangements'].search([])[-1].ptp_expected_date  if rec.ptp_expected_date == None else None 
+            rec.ptp_expected_date = rec.arrangement_ids[-1].ptp_expected_date if  rec.arrangement_ids else None
+            return rec
 
     def _compute_last_ptp_amount(self):
         for rec in self:
-            if rec.ptp_amount == True:
-                rec.ptp_amount = rec.env['snt.arrangements'].search([] )[-1].amount 
-
+            rec.last_ptp_amount = rec.arrangement_ids[-1].amount if  rec.arrangement_ids else 0.0
+            return rec
 
     def _compute_last_ptp_agent(self):
-        for rec in self:
-            rec.ptp_agent = rec.env['snt.arrangements'].search([])[-1].user_id.name  if rec.ptp_agent  == None else None 
+       for rec in self:
+            rec.last_ptp_agent = rec.arrangement_ids[-1].user_id if  rec.arrangement_ids else None
+            return rec
+
     @api.depends("payments_ids.amount_paid")
     def _compute_outstanding_balance(self):
         for prop in self:
