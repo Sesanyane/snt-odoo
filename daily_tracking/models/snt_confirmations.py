@@ -14,7 +14,7 @@ class Confirmations(models.Model):
     date_paid = fields.Date(
 
     )
-
+    is_confirmed = fields.Boolean()
     confirmed_by = fields.Many2one("res.partner", string="Client",
                                    readonly=True, copy=False)
 

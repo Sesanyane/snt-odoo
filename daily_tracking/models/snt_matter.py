@@ -5,7 +5,7 @@ class Matter(models.Model):
     _name = "snt.matter"
 
     _description = "Matter"
-    # _inherit = ['mail.thread', 'mail.activity.mixin']
+
     _rec_name = "matter_no"
 
 # _sql_constraints = [
@@ -19,8 +19,7 @@ class Matter(models.Model):
     # ]
 
     # Use sequence. Caution to the wind regarding next number in sequence. 
-    # Using Odoo test import runs ups the numbers in the sequence and therefore create a gap
-    
+    # Using Odoo test import rn
     matter_no = fields.Char(
 
     )

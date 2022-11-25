@@ -15,4 +15,6 @@
 
     <menuitem id="snt_campaign_register_menu" name="Campaign Register" parent='snt_root_menu' action="snt_campaign_register_action" groups="group_agent_manager"/>
 
+    <menuitem id="snt_confirmations_menu" name="Confirmations" parent='snt_root_menu' action="snt_confirmations_action" groups="group_agent_manager"/>
+
 </odoo>
