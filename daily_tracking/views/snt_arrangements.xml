@@ -1,49 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<record id="snt_arrangements_action" model="ir.actions.act_window">
-    <field name="name">Arrangements</field>
-    <field name="res_model">snt.arrangements</field>
-    <field name="view_mode">tree,form</field>
-</record>
- <record id="snt_arrangements_form" model="ir.ui.view">
+    <record id="snt_arrangements_action" model="ir.actions.act_window">
+        <field name="name">Arrangements</field>
+        <field name="res_model">snt.arrangements</field>
+        <field name="context">{'search_default_today': 1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="snt_arrangements_form" model="ir.ui.view">
         <field name="name">snt.arrangements.form</field>
         <field name="model">snt.arrangements</field>
         <field name="arch" type="xml">
+
             <form string="Arrangements">
 
                 <header>
 
-                <!-- <button name=" " type="object" string="Request C onfirmation"
-                            /> -->  
+                    <!-- <button name=" " type="object" string="Request Confirmation" />  -->
 
-                <field name="state" widget="statusbar"
-                           statusbar_visible="new,paid,partially,broken"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,paid,partially,broken"/>
                 </header>
                 <sheet>
-                <group >
-                    <group>
-                 <field name="matter_id"/>
-                <field name="amount"/>
-                <field name="ptp_type"/>
-                </group>
-                <group>
-                    <field name="ptp_expected_date" options="{'datepicker':{'minDate':'now'}}" />
-                <field name="user_id"/>
-               
-                </group>
-                </group>
-                <notebook>
-                    
-                <page string="Arrangements">
-                    <field name="arrangement_ids"/>
-                </page>
-                        
+                    <group >
+                        <group>
+                            <field name="matter_id"/>
+                            <field name="amount"/>
+                            <field name="ptp_type"/>
+                            <field name="initial_amount" attrs="{'invisible':[('ptp_type', '!=', 'monthly')]}"/>
+                            <field name="installment" attrs="{'invisible':[('ptp_type', '!=', 'monthly')]}"/>
+                        </group>
+                        <group>
+                            <field name="ptp_expected_date" options="{'datepicker':{'minDate':0}}" />
+                            <field name="user_id"/>
+
+
+                        </group>
+                    </group>
+                    <notebook attrs="{'invisible':[('ptp_type', '!=', 'monthly')]}">
+
+                        <page string="Payment Terms">
+                            <!-- <field name="arrangement_ids"/> -->
+                        </page>
+
                     </notebook>
                 </sheet>
             </form>
+
         </field>
     </record>
-    <record id="snt_arrangments_view_tree" model="ir.ui.view">
+
+    <record id="snt_arrangements_tree" model="ir.ui.view">
         <field name="name">snt.arrangements.tree</field>
         <field name="model">snt.arrangements</field>
         <field name="arch" type="xml">
@@ -55,21 +60,25 @@
                 <field name="ptp_type"/>
                 <field name="ptp_expected_date"/>
                 <field name="user_id"/>
-                
+
             </tree>
         </field>
     </record>
-    <!-- <record id="snt_arrangments_action" model="ir.actions.act_window">
-        <field name="res_model">snt.arrangements</field>
-        <field name="view_mode">tree,kanban,form</field>
-        <field name="context">{'search_default_available': 1}</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create Arrangements
-            </p>
-            <p>
-                Create Arrangements
-            </p>
+
+    <record id="snt_arrangements_search" model="ir.ui.view">
+        <field name="name">snt.arrangements.search</field>
+        <field name="model">snt.arrangements</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="client"/>
+                <field name="matter_id"/>
+                <field name="amount" sum="Total Expected PTP Amount"/>
+                <field name="balance" sum="Total Outstanding"/>
+                <field name="ptp_type"/>
+                <field name="ptp_expected_date"/>
+                <field name="user_id"/>
+            </search>
         </field>
-        </record> -->
+    </record>
+
 </odoo>

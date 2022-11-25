@@ -5,3 +5,5 @@ access_snt_book,access_snt_book,model_snt_book,base.group_user,1,1,1,1
 access_snt_arrangements,access_snt_arrangements,model_snt_arrangements,base.group_user,1,1,1,1
 access_snt_payments,access_snt_payments,model_snt_payments,base.group_user,1,1,1,1
 access_snt_daily_tracker,access_snt_daily_tracker,model_snt_daily_tracker,base.group_user,1,1,1,1
+access_snt_campaign_register,access_snt_campaign_register,model_snt_campaign_register,base.group_user,1,1,1,1
+access_snt_confirmations,access_snt_confirmations,model_snt_confirmations,base.group_user,1,1,1,1

@@ -6,9 +6,8 @@ class Payments(models.Model):
 
     _description = "Payments"
 
-
-    matter_id = fields.Many2one("snt.matter",string="Matter Number"
-    )
+    matter_id = fields.Many2one("snt.matter", string="Matter Number"
+                                )
     account_no = fields.Char(
 
     )
@@ -16,12 +15,11 @@ class Payments(models.Model):
 
     )
 
-
     confirmed_by = fields.Many2one("res.partner", string="Client",
-                               readonly=True, copy=False)
+                                   readonly=True, copy=False)
 
     agent = fields.Many2one("res.users", string="Agent",
-                              default=lambda self: self.env.user)
+                            default=lambda self: self.env.user)
 
     location_paid = fields.Char(
 
@@ -62,5 +60,3 @@ class Payments(models.Model):
         if "confirmed" in self.mapped("state"):
             raise UserError("confirmed property!!!!!!.")
         return self.write({"state": "confirmed"})
-
-  

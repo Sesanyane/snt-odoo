@@ -1,11 +1,11 @@
 from odoo import api, fields, models
 
 
-class Matter(models.Model):      
+class Matter(models.Model):
     _name = "snt.matter"
 
     _description = "Matter"
-
+    # _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = "matter_no"
 
 # _sql_constraints = [
@@ -16,50 +16,63 @@ class Matter(models.Model):
     #     ("check_selling_price", "CHECK(selling_price >= 0)", "The offer "
     #                                                          "price must be "
     #                                                          "positive"),
-    # ]    
+    # ]
 
+    # Use sequence. Caution to the wind regarding next number in sequence. 
+    # Using Odoo test import runs ups the numbers in the sequence and therefore create a gap
+    
     matter_no = fields.Char(
+
+    )
+
+    product_info = fields.Char(
+
+    )
+
+    account_no = fields.Char(
 
     )
 
     file_status = fields.Char()
     outstanding_balance = fields.Float(compute="_compute_outstanding_balance"
 
-    )
+                                       )
     handover_amount = fields.Float(
 
     )
     book_id = fields.Many2one("snt.book", string="Book",
-                                  required=True)
+                              required=True)
     # client_id = fields.Many2one("snt.client", string="Client",
-    #                               required=True)                              
-                                  
+    #                               required=True)
 
     arrangement_ids = fields.One2many("snt.arrangements",
-                                "matter_id", string="Arrangemnts")
+                                      "matter_id", string="Arrangemnts")
     payments_ids = fields.One2many("snt.payments",
-                                "matter_id", string="Payments")
+                                   "matter_id", string="Payments")
 
     last_date_paid = fields.Date(compute='_compute_last_date_paid'
 
-    )
-    amount_paid = fields.Float( compute='payment_details'
+                                 )
+    amount_paid = fields.Float(compute='payment_details'
 
-    )
-    last_paid_agent = fields.Char( compute='_compute_last_paid_agent'
+                               )
+    last_paid_agent = fields.Char(compute='_compute_last_paid_agent'
 
-    )
+                                  )
+    last_contact_date = fields.Date(
 
-    debtor= fields.Char(tracking=True
-        
-    )
+                                  )
+
+    debtor = fields.Char(tracking=True
+
+                         )
 
     ptp_expected_date = fields.Date(compute='_compute_ptp_expected_date'
 
-    )
-    last_ptp_amount = fields.Float( compute='_compute_last_ptp_amount'
+                                    )
+    last_ptp_amount = fields.Float(compute='_compute_last_ptp_amount'
 
-    )
+                                   )
     ptp_agent = fields.Char(
 
     )
@@ -67,10 +80,16 @@ class Matter(models.Model):
 
     arrangement_count = fields.Integer(compute="_compute_arrangement_count")
 
+    broken_ptp_count = fields.Integer()
+
+    call_count = fields.Integer()
+
+    sms_count = fields.Integer()
+
     payments_count = fields.Integer(compute="_compute_payments_count")
 
-    tracker_id =  fields.One2many("snt.daily.tracker",
-                                "matter_ids", string="Daily tracker")
+    tracker_id = fields.One2many("snt.daily.tracker",
+                                 "matter_ids", string="Daily tracker")
 
     # Computed
     total_ptp_amount = fields.Float(
@@ -80,8 +99,9 @@ class Matter(models.Model):
     )
 
     def _compute_arrangement_count(self):
-        totalArrangmenets = self.env['snt.matter.arrangemt_ids']
-
+        # totalArrangmenents = self.env['snt.matter.arrangement_ids']
+        for record in self:
+            record.arrangement_count = len(self.arrangement_ids)
 
     def _compute_arrangements_count(self):
         for record in self:
@@ -90,11 +110,11 @@ class Matter(models.Model):
     def _compute_payments_count(self):
         for record in self:
             record.payments_count = len(self.payments_ids)
-	
+
     @api.depends("outstanding_balance")
     def _compute_total_ptp_amont(self):
-        for prop in self:
-            prop.total_area = sum(prop.outstanding_balance)
+        #self.total_ptp_amount = sum(self.outstanding_balance)
+        self.total_ptp_amount = sum(self.arrangement_ids.mapped("amount"))
 
     def action_show_arrangements(self):
         self.ensure_one()
@@ -105,7 +125,8 @@ class Matter(models.Model):
             "res_model": "snt.arrangements",
             "domain": [("matter_id", "=", self.id)],
             "context": "{'create': False}",
-            }
+        }
+
     def action_show_payments(self):
         self.ensure_one()
         return {
@@ -115,8 +136,7 @@ class Matter(models.Model):
             "res_model": "snt.payments",
             "domain": [("matter_id", "=", self.id)],
             "context": "{'create': False}",
-            }
-
+        }
 
     # @api.depends("payments_ids.date_paid")
     # def _compute_last_date_paid(self):
@@ -124,39 +144,39 @@ class Matter(models.Model):
     #         prop.last_date_paid = max(prop.payments_ids.mapped("date_paid")) \
     #             if prop.payments_ids else 0.0
 
-
-  
     def payment_details(self):
         for rec in self:
-            rec.amount_paid = rec.payments_ids[-1].amount_paid if  rec.payments_ids else 0.0
+            rec.amount_paid = rec.payments_ids[-1].amount_paid if rec.payments_ids else 0.0
             return rec
-
 
     def _compute_last_date_paid(self):
-         for rec in self:
-            rec.last_date_paid = rec.payments_ids[-1].date_paid if  rec.payments_ids else None
-            return rec 
+        for rec in self:
+            rec.last_date_paid = rec.payments_ids[-1].date_paid if rec.payments_ids else None
+            return rec
+
     def _compute_last_paid_agent(self):
         for rec in self:
-            rec.last_paid_agent= rec.payments_ids[-1].agent.name if  rec.payments_ids else None
+            rec.last_paid_agent = rec.payments_ids[-1].agent.name if rec.payments_ids else None
             return rec
-    @api.depends("payments_ids.amount_paid") 
+
+    @api.depends("payments_ids.amount_paid")
     def _compute_ptp_expected_date(self):
         for rec in self:
-            rec.ptp_expected_date = rec.arrangement_ids[-1].ptp_expected_date if  rec.arrangement_ids else None
+            rec.ptp_expected_date = rec.arrangement_ids[-1].ptp_expected_date if rec.arrangement_ids else None
             return rec
 
     def _compute_last_ptp_amount(self):
         for rec in self:
-            rec.last_ptp_amount = rec.arrangement_ids[-1].amount if  rec.arrangement_ids else 0.0
+            rec.last_ptp_amount = rec.arrangement_ids[-1].amount if rec.arrangement_ids else 0.0
             return rec
 
     def _compute_last_ptp_agent(self):
-       for rec in self:
-            rec.last_ptp_agent = rec.arrangement_ids[-1].user_id if  rec.arrangement_ids else None
+        for rec in self:
+            rec.last_ptp_agent = rec.arrangement_ids[-1].user_id if rec.arrangement_ids else None
             return rec
 
     @api.depends("payments_ids.amount_paid")
     def _compute_outstanding_balance(self):
         for prop in self:
-            prop.outstanding_balance = prop.handover_amount - sum(prop.payments_ids.mapped("amount_paid"))   
+            prop.outstanding_balance = prop.handover_amount - \
+                sum(prop.payments_ids.mapped("amount_paid"))
