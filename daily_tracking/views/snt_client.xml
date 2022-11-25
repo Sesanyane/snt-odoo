@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<record id="snt_client_action" model="ir.actions.act_window">
-    <field name="name">Client</field>
-    <field name="res_model">snt.client</field>
-    <field name="view_mode">tree,form</field>
-</record>
+    <record id="snt_client_action" model="ir.actions.act_window">
+        <field name="name">Client</field>
+        <field name="res_model">snt.client</field>
+        <field name="view_mode">tree,form</field>
+    </record>
     <record id="snt_client_form" model="ir.ui.view">
         <field name="name">snt.client.form</field>
         <field name="model">snt.client</field>
@@ -17,11 +17,11 @@
                         </h1>
                     </div>
                     <notebook>
-                    
+
                         <page string="Books">
                             <field name="book_ids"/>
                         </page>
-                        
+
                     </notebook>
                 </sheet>
             </form>
@@ -39,7 +39,7 @@
         </field>
     </record>
 
-  
+
     <!-- <record id="snt_client_kanban" model="ir.ui.view">
         <field name="name"snt.client.kanban</field>
         <field name="model">snt.client</field>

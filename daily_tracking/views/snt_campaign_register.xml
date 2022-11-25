@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="snt_campaign_register_action" model="ir.actions.act_window">
+        <field name="name">Campaign Register</field>
+        <field name="res_model">snt.campaign.register</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="snt_campaign_register_form" model="ir.ui.view">
+        <field name="name">snt.campaign.register.form</field>
+        <field name="model">snt.campaign.register</field>
+        <field name="arch" type="xml">
+
+            <form string="Campaign Register">
+                <sheet>
+                    <group >
+                        <group >
+                            <!-- <field name="create_date" string='Date' attrs="{'readonly': [('id','=', False )]}"/> -->
+                            <!-- <field name="campaign_no"/> -->
+                            <field name="date_requested" options="{'no_create': True}"/>
+                            <field name="req_run_date"/>
+
+                            <field name="req_by"/>
+                            <field name="start_date"/>
+
+                        </group>
+
+                        <group >
+                            <field name="end_date" />
+                            <field name="agent" widget="many2many_tags" options="{'color_field': 'color'}" />
+                            <!-- <field name="criteria" /> -->
+                            <field name="book_id"/>
+
+
+                        </group>
+
+                    </group>
+
+
+
+
+
+                </sheet>
+
+                <!-- Add chatter and followers widget -->
+                <div class="oe_chatter">
+                    <!-- Followers view -->
+                    <field name="message_follower_ids"/>
+                    <!-- Followers view -->
+                    <field name="activity_ids" />
+                    <!-- Chatter view -->
+                    <field name="message_ids"/>
+                </div>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="snt_campaign_register_tree" model="ir.ui.view">
+        <field name="name">snt.campaign.register.tree</field>
+        <field name="model">snt.campaign.register</field>
+        <field name="arch" type="xml">
+            <tree string="Campaigns">
+                <!-- <field name="campaign_no"/> -->
+                <field name="date_requested" />
+                <field name="req_run_date"/>
+                <field name="req_by"/>
+                <field name="start_date"/>
+                <field name="end_date" />
+                <field name="agent" />
+                <!-- <field name="criteria" /> -->
+                <field name="book_id"/>
+
+
+
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="snt_capaign_register_search" model="ir.ui.view">
+        <field name="name">snt.campaign.register.search</field>
+        <field name="model">snt.campaign.register</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- <field name="campaign_no"/> -->
+                <field name="date_requested" />
+                <field name="req_run_date"/>
+                <field name="req_by"/>
+                <field name="start_date"/>
+                <field name="end_date" />
+                <field name="agent" />
+                <!-- <field name="criteria" /> -->
+                <field name="book_id"/>
+
+            </search>
+        </field>
+    </record>
+
+</odoo>

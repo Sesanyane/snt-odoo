@@ -1,0 +1,18 @@
+<!-- <?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="snt_criteria_tree" model="ir.ui.view">
+        <field name="name">snt_criteria.tree</field>
+        <field name="model">snt_criteria</field>
+        <field name="arch" type="xml">
+            <tree string="Criteria" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="snt_criteria_action" model="ir.actions.act_window">
+        <field name="name">Criteria</field>
+        <field name="res_model">snt_criteria</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo> -->

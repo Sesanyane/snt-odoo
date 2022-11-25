@@ -13,9 +13,11 @@
         "views/snt_book.xml",
         "views/snt_matter.xml",
         "views/snt_payments.xml",
+        "views/snt_campaign_register.xml",
+        # "views/snt_criteria.xml",
         "views/snt_menus.xml",
     ],
-    'depends':[
+    'depends': [
         'base',
         'mail'
     ],
