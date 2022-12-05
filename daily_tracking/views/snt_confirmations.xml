@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="snt_payments_action" model="ir.actions.act_window">
-        <field name="name">Payments</field>
-        <field name="res_model">snt.payments</field>
+    <record id="snt_confirmations_action" model="ir.actions.act_window">
+        <field name="name">Confirmations</field>
+        <field name="res_model">snt.confirmations</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <record id="snt_payments_form" model="ir.ui.view">
-        <field name="name">snt.payments.form</field>
-        <field name="model">snt.payments</field>
+    <record id="snt_confirmations_form" model="ir.ui.view">
+        <field name="name">snt.confirmations.form</field>
+        <field name="model">snt.confirmations</field>
         <field name="arch" type="xml">
-            <form string="Payments">
+            <form string="Confirmations">
 
                 <header>
                     <button name="action_sold" type="object" string="Confirm" states="request_confirmation,sent_to_client"/>
@@ -41,9 +41,9 @@
             </form>
         </field>
     </record>
-    <record id="snt_payments_view_tree" model="ir.ui.view">
-        <field name="name">snt.payments.tree</field>
-        <field name="model">snt.payments</field>
+    <record id="snt_confirmations_view_tree" model="ir.ui.view">
+        <field name="name">snt.confirmations.tree</field>
+        <field name="model">snt.confirmations</field>
         <field name="arch" type="xml">
             <tree string="Payments">
                 <field name="matter_id"/>

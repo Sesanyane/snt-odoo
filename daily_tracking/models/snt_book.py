@@ -10,7 +10,7 @@ class Books(models.Model):
     name = fields.Char(
         string='Book Name',
     )
-    instuction_fee =  fields.Integer(
+    instuction_fee = fields.Integer(
         string="Instruction Fee",
     )
     commision = fields.Float(
@@ -18,12 +18,13 @@ class Books(models.Model):
     )
 
     out_standing_balance = fields.Float(
-        
+
     )
     client_id = fields.Many2one("snt.client", string="Client",
-                                  required=True)
+                                required=True)
 
     matter_ids = fields.One2many("snt.matter",
-                                "book_id", string="Matters")
+                                 "book_id", string="Matters")
 
-    
+    campaign_ids = fields.One2many("snt.campaign.register",
+                                   "book_id", string="Matters")

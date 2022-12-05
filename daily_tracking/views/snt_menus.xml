@@ -1,42 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <menuitem 
-    id="snt_root_menu" 
-    name="S&amp;T Collections"/>
+    <menuitem id="snt_root_menu" name="S&amp;T Collections"/>
 
-    <menuitem 
-    id="snt_daily_tracker_menu" 
-    name="Daily Tracker"
-    parent='snt_root_menu'
-    action="snt_daily_tracker_action"/>
+    <menuitem id="snt_daily_tracker_menu" name="Daily Tracker" parent='snt_root_menu' action="snt_daily_tracker_action"/>
 
-    <menuitem 
-    id="snt_arrangements_menu" 
-    name="Arrangements"
-    parent='snt_root_menu'
-    action="snt_arrangements_action"
-    groups="group_agent_manager"/>
+    <menuitem id="snt_arrangements_menu" name="Arrangements" parent='snt_root_menu' action="snt_arrangements_action" groups="group_agent_manager"/>
 
-    <menuitem 
-    id="snt_Payments_menu" 
-    name="Payments"
-    parent='snt_root_menu'
-    action="snt_payments_action"
-    groups="group_agent_manager"/>
+    <menuitem id="snt_Payments_menu" name="Payments" parent='snt_root_menu' action="snt_payments_action" groups="group_agent_manager"/>
 
-     <menuitem 
-    id="snt_Client_menu" 
-    name="Client"
-    parent='snt_root_menu'
-    action="snt_client_action"
-    groups="group_agent_manager"/>
+    <menuitem id="snt_Client_menu" name="Client" parent='snt_root_menu' action="snt_client_action" groups="group_agent_manager"/>
 
-    <menuitem 
-    id="snt_matter_menu" 
-    name="Matter"
-    parent='snt_root_menu'
-    action="snt_matter_action"
-    groups="group_agent_manager"/>  
+    <menuitem id="snt_matter_menu" name="Matter" parent='snt_root_menu' action="snt_matter_action" groups="group_agent_manager"/>
+
+    <menuitem id="snt_campaign_register_menu" name="Campaign Register" parent='snt_root_menu' action="snt_campaign_register_action" groups="group_agent_manager"/>
 
 </odoo>
