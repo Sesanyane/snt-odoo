@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="snt_scripts_action" model="ir.actions.act_window">
+        <field name="name">Script</field>
+        <field name="res_model">snt.scripts</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="snt_scripts_form" model="ir.ui.view">
+        <field name="name">snt.scripts.form</field>
+        <field name="model">snt.scripts</field>
+        <field name="arch" type="xml">
+
+            <form string="Script">
+                <sheet>
+                    <group >
+                        <group string="Script">
+                          
+                            <field name="name"/>
+                            <field name="script"/>
+
+                        </group>
+
+                    </group>
+
+
+
+
+
+                </sheet>
+
+                <!-- Add chatter and followers widget -->
+                <div class="oe_chatter">
+                    <!-- Followers view -->
+                    <field name="message_follower_ids"/>
+                    <!-- Followers view -->
+                    <field name="activity_ids" />
+                    <!-- Chatter view -->
+                    <field name="message_ids"/>
+                </div>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="snt_scripts_tree" model="ir.ui.view">
+        <field name="name">snt.scripts.tree</field>
+        <field name="model">snt.scripts</field>
+        <field name="arch" type="xml">
+            <tree string="Scripts">
+                <field name="name"/>
+                <field name="script"/>
+               
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="snt_scripts_search" model="ir.ui.view">
+        <field name="name">snt.scripts.search</field>
+        <field name="model">snt.scripts</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- <field name="campaign_no"/> -->
+                <field name="name" />
+                <field name="script"/>
+                
+
+            </search>
+        </field>
+    </record>
+
+</odoo>
