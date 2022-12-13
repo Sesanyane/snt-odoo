@@ -1,7 +1,7 @@
 {
     'name': "S&t DATA",
     'author': "Leano Sesanyane",
-    'depends': ['base', 'web'],
+    'depends': ['base', 'web','mail'],
     # Puts the app at the top of the app list
     'sequence': -10,
     'data': [
@@ -9,17 +9,15 @@
         "security/security.xml",
         "views/snt_daily_tracker.xml",
         "views/snt_arrangements.xml",
-        "views/snt_client.xml",
         "views/snt_book.xml",
         "views/snt_matter.xml",
         "views/snt_payments.xml",
         "views/snt_campaign_register.xml",
-        # "views/snt_criteria.xml",
+        "views/snt_confirmations.xml",
+        "views/snt_scripts.xml",
+        "views/snt_call_flow.xml",
+        "views/snt_debt_type.xml", 
         "views/snt_menus.xml",
-    ],
-    'depends': [
-        'base',
-        'mail'
     ],
     'installable': True,
     'auto_install': False,

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="snt_call_flow_action" model="ir.actions.act_window">
+        <field name="name">Call Flow</field>
+        <field name="res_model">snt.call.flow</field>
+        <field name="view_mode">form</field>
+    </record>
+    <record id="snt_call_flow_form" model="ir.ui.view">
+        <field name="name">snt.call.flow</field>
+        <field name="model">snt.call.flow</field>
+        <field name="arch" type="xml">
+
+            <form string="Call flow">
+
+                <div style="width:20%;">
+                    <sheet>
+                        <paragrph>
+                            <h1> What is Lorem Ipsum?</h1>
+                        Lorem Ipsum is simply dummy text of the printing 
+                        and typesetting industry. Lorem Ipsum has been the industry's 
+                        standard dummy text ever since the 1500s, when an unknown printer 
+                        took a galley of type and scrambled it to make a type specimen book. 
+                        It has survived not only five centuries, but also the leap into electronic
+                         typesetting, remaining essentially unchanged. It was popularised in the 1960s 
+                         with the release of Letraset sheets containing Lorem Ipsum passages, and more 
+                         recently with desktop publishing software like Aldus PageMaker including versions 
+                         of Lorem Ipsum. 
+                        </paragrph>
+                    </sheet>
+                </div>
+                <div style="width:60%;">
+                    <sheet>
+                        <!-- <div class="oe_button_box" name="button_box">
+                        <button name="action_show_arrangements" type="object" class="oe_stat_button" icon="fa-list">
+                            <field string="Arrangements" name="arrangements_count" widget="statinfo"/>
+                        </button>
+                        <button name="action_show_payments" type="object" class="oe_stat_button" icon="fa-money">
+                            <field string="Payments" name="payments_count" widget="statinfo"/>
+                        </button>
+                        <button name="action_show_payments" type="object" class="oe_stat_button" icon="fa-solid fa-phone">
+                            <field string="Calls" name="call_count" widget="statinfo"/>
+                        </button>
+                        <button name="action_show_payments" type="object" class="oe_stat_button" icon="fa-clock-o">
+                            <field string="Broken PTP" name="broken_ptp_count" widget="statinfo"/>
+                        </button>
+                        <button name="action_show_payments" type="object" class="oe_stat_button" icon="fa-comment">
+                            <field string="SMS" name="sms_count" widget="statinfo"/>
+                        </button>
+                       
+                    
+
+                    </div> -->
+                        <group>
+
+
+                            <group string="Account information">
+                                <field name="file_status"/>
+                                <field name="matter_no"/>
+                                <field name="account_no"/>
+                                <field name="debtor"/>
+                                <field name="handover_amount"/>
+                                <field name="outstanding_balance"/>
+
+                            </group>
+
+                            <group string='Matter information'>
+                                <field name="last_date_paid"/>
+                                <field name="amount_paid"/>
+                                <field name="last_paid_agent"/>
+                                <field name="ptp_expected_date"/>
+                                <field name="last_ptp_amount"/>
+                                <field name="ptp_agent"/>
+                                <field name="last_contact_date"/>
+
+                            </group>
+
+                        </group>
+
+                        <notebook>
+
+                            <page string="Arrangements">
+                                <field name="arrangement_ids">
+                                    <tree string="Arrangements">
+                                        <field name="ptp_expected_date"/>
+                                        <field name="amount" sum="Total Expected PTP Amount"/>
+                                        <field name="balance" sum="Total Outstanding"/>
+                                        <field name="ptp_type"/>
+                                        <field name="user_id"/>
+                                        <field name="create_date"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+
+
+
+                        </notebook>
+                    </sheet>
+                </div>
+            
+
+
+
+
+
+        </form>
+
+    </field>
+</record>
+
+<!-- <record id="snt_matter_tree" model="ir.ui.view">
+        <field name="name">snt.matter.tree</field>
+        <field name="model">snt.matter</field>
+        <field name="arch" type="xml">
+            <tree string="Matters">
+                <field name="matter_no"/>
+                <field name="file_status"/>
+                <field name="handover_amount"/>
+                <field name="outstanding_balance"/>
+
+            </tree>
+        </field>
+    </record> -->
+
+<!-- <record id="snt_book_model_action" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">snt.book.offer</field>
+        <field name="domain">[('book_id','=', active_id)]</field>
+        <field name="view_mode">tree,form</field>
+    </record> -->
+
+</odoo>

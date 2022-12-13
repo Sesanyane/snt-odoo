@@ -60,3 +60,28 @@ class Payments(models.Model):
         if "confirmed" in self.mapped("state"):
             raise UserError("confirmed property!!!!!!.")
         return self.write({"state": "confirmed"})
+
+
+    # Payments
+    # Handover - Debit
+    # Capture Receipt - Credit
+    # Capital adjustment - + Debit / -Credit
+    # Reverse Receipt - Debit
+    # Commission - Debit
+    # Provisional - Thse are are configmed/not confirmed. WAITING PMY FILT ETC
+    # 
+    # Steps - Capture Receipt 
+    # Handover Amount - Debit
+    # Payment Received - Credit (Amount received - Collection Commission 10%)
+    # Collection Commision - Debit eg 10% of Payment Received
+    # Outstanding Comssion  - Debit (10% of outstanding balance)
+    # 
+    # Steps - Reverse Receipt 
+    # Reversal Receipt - id
+    # Reversal Amount - Debit
+    # Date
+    # 
+    # Steps - Capital adjustment 
+    # Reversal Receipt - id
+    # Reversal Amount - Debit
+    # Date
