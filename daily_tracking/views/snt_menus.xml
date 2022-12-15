@@ -9,10 +9,17 @@
 
     <menuitem id="snt_Payments_menu" name="Payments" parent='snt_root_menu' action="snt_payments_action" groups="group_agent_manager"/>
 
-    <menuitem id="snt_Client_menu" name="Client" parent='snt_root_menu' action="snt_client_action" groups="group_agent_manager"/>
-
     <menuitem id="snt_matter_menu" name="Matter" parent='snt_root_menu' action="snt_matter_action" groups="group_agent_manager"/>
 
     <menuitem id="snt_campaign_register_menu" name="Campaign Register" parent='snt_root_menu' action="snt_campaign_register_action" groups="group_agent_manager"/>
 
+    <menuitem id="snt_confirmations_menu" name="Confirmations" parent='snt_root_menu' action="snt_confirmations_action" groups="group_agent_manager"/>
+
+    <menuitem id="snt_scripts_menu" name="Scripts" parent='snt_root_menu' action="snt_scripts_action" groups="group_agent_manager"/>
+
+    <menuitem id="snt_call_flow_menu" name="Call Flow" parent='snt_root_menu' action="snt_call_flow_action" groups="group_agent_manager"/>
+
+    <menuitem id="snt_book_menu" name="Book" parent='snt_root_menu' action="snt_book_action" groups="group_agent_manager"/>
+
+    <menuitem id="snt_debt_type_menu" name="Debt type" parent='snt_root_menu' action="snt_debt_type_action" groups="group_agent_manager"/>
 </odoo>

@@ -12,30 +12,37 @@
             <form string="Confirmations">
 
                 <header>
-                    <button name="action_sold" type="object" string="Confirm" states="request_confirmation,sent_to_client"/>
                     <!-- <button name="action_sold" type="object" string="Confirm" states="request_confirmation" class="oe_highlight"/> -->
                     <field name="state" widget="statusbar" statusbar_visible="request_confirmation,sent_to_client,paid,not_paid"/>
                 </header>
                 <sheet>
+                    <!-- <widget name="web_ribbon title confirmed" bg_color="bg-success" attrs="{'invisible':[('active', '=' ,True)]}"/> -->
                     <group >
 
 
-                        <group>
+                        <group string="Matter Information">
                             <field name="matter_id"/>
                             <field name="account_no"/>
                             <field name="location_paid"/>
                             <field name="amount_paid"/>
                             <field name="paid_at"/>
                             <field name="date_paid"/>
-                            <field name="confirmed_by"/>
                             <field name="agent"/>
 
 
-                        </group>
-
-                        <group >
+                        </group >
+                           
+                        <group string="Attachments">
                             <field name="pop" widget="pdf_viewer"/>
                         </group>
+
+                        <group string="Confirming Agent">
+                            <field name="is_confirmed" widget= "toggle.button"
+                             decoration-success="is_confirmed==True"
+                             decoration-danger="is_confirmed==False"/>
+                            <field name="confirmed_by"/>
+                        </group>
+
                     </group>
                 </sheet>
             </form>
@@ -54,6 +61,7 @@
                 <field name="date_paid"/>
                 <field name="confirmed_by"/>
                 <field name="state"/>
+                <field name="is_confirmed"/>
 
             </tree>
         </field>

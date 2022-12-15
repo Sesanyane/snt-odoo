@@ -1,11 +1,10 @@
 from odoo import api, fields, models
 
-
 class Matter(models.Model):
     _name = "snt.matter"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     _description = "Matter"
-    # _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = "matter_no"
 
 # _sql_constraints = [
@@ -19,11 +18,9 @@ class Matter(models.Model):
     # ]
 
     # Use sequence. Caution to the wind regarding next number in sequence. 
-    # Using Odoo test import runs ups the numbers in the sequence and therefore create a gap
-    
-    matter_no = fields.Char(
+    # Using Odoo test import rn
+    matter_no = fields.Char('Matter No.', default='New')
 
-    )
 
     product_info = fields.Char(
 
@@ -38,7 +35,7 @@ class Matter(models.Model):
 
                                        )
     handover_amount = fields.Float(
-
+        tracking=True
     )
     book_id = fields.Many2one("snt.book", string="Book",
                               required=True)
@@ -63,9 +60,8 @@ class Matter(models.Model):
 
                                   )
 
-    debtor = fields.Char(tracking=True
-
-                         )
+    debtor =  fields.Many2one("res.partner", string="Debtor",
+                                   readonly=False, copy=False)
 
     ptp_expected_date = fields.Date(compute='_compute_ptp_expected_date'
 
@@ -98,6 +94,8 @@ class Matter(models.Model):
         help="Total area computed by summing all oustanding ptp amount",
     )
 
+
+ # --------------------------------------------Compute Functions------------------------------------
     def _compute_arrangement_count(self):
         # totalArrangmenents = self.env['snt.matter.arrangement_ids']
         for record in self:
@@ -143,7 +141,6 @@ class Matter(models.Model):
     #     for prop in self:
     #         prop.last_date_paid = max(prop.payments_ids.mapped("date_paid")) \
     #             if prop.payments_ids else 0.0
-
     def payment_details(self):
         for rec in self:
             rec.amount_paid = rec.payments_ids[-1].amount_paid if rec.payments_ids else 0.0
@@ -180,3 +177,15 @@ class Matter(models.Model):
         for prop in self:
             prop.outstanding_balance = prop.handover_amount - \
                 sum(prop.payments_ids.mapped("amount_paid"))
+
+
+#------------------------------------------ on create method--------------------------------------------
+    @api.model
+    def create(self, vals):
+        book = self.env["snt.book"].search(
+            [("id", "=", vals['book_id'])]
+        )
+        vals['matter_no'] = self.env['ir.sequence'].next_by_code(book.matter_prefix) or "New"
+
+
+        return super(Matter, self).create(vals)
